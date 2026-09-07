@@ -7,7 +7,7 @@ memories:[
 ["Nuestro primer viaje a la playa","El comienzo oficial de nosotros","Fue ahí donde te pregunté si querías que fuéramos novios. Y mira todo lo que vino después."],
 ["Nuestro primer Año Nuevo juntitos","Una noche para recordar","Yo muriéndome de pena en casa de Maria Daniella y tú haciendo que todo fuera muchísimo más cómodo. Y lo que pasó después en mi casa queda guardado entre nosotros."],
 ["Nuestro Airbnb","Nuestra fantasía de vivir juntos por un día","Paseamos, cocinamos una pasta divina, vimos el Super Bowl —principalmente el show de medio tiempo— y dormimos juntitos. Una pequeña probadita de nuestra vida juntos."],
-["Caracas y el Ávila","Otro lugar que ahora tiene tu nombre","Viajar contigo hace que hasta los lugares que ya conocía se sientan nuevos. Ese día quedó guardado entre mis favoritos."],
+["Caracas y el Ávila","Otro lugar que ahora tiene tu nombre","Viajar contigo hace que cualquier lugar se vuelva un lugar especial. Ese día quedó guardado entre mis favoritos."],
 ["Tu tesis","Todo el camino hasta la presentación","Verte trabajar, ayudarte, acompañarte y finalmente verte presentar fue demasiado bonito. Estoy muy orgulloso de ti."],
 ["La graduación de mi hermana","Y tú robándote todas las miradas","Ese vestido. Sí, ese vestido. Te veías brutalmente hermosa y todavía recuerdo perfectamente cómo te veías."]
 ],

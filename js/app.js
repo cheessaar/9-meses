@@ -1,0 +1,24 @@
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const screens=$$(".screen"), body=$("#contentBody"), modal=$("#modal"), modalContent=$("#modalContent");
+function screen(id){screens.forEach(x=>x.classList.toggle("active",x.id===id));scrollTo({top:0,behavior:"smooth"})}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function openModal(html){modalContent.innerHTML=html;modal.classList.add("open");modal.setAttribute("aria-hidden","false")}
+function closeModal(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true")}
+$$("[data-close-modal]").forEach(x=>x.onclick=closeModal);document.onkeydown=e=>{if(e.key==="Escape")closeModal()};
+function openExperience(){$("#giftBox").classList.add("opening");setTimeout(()=>screen("home"),700)}
+$("#giftBox").onclick=openExperience;$("#giftBox").onkeydown=e=>{if(e.key==="Enter"||e.key===" ")openExperience()};$("#openButton").onclick=openExperience;
+$$(".menu-card").forEach(x=>x.onclick=()=>render(x.dataset.section));$("#backButton").onclick=()=>screen("home");
+const config={memories:["nuestros recuerdos","Momentos que guardaría mil veces"],reasons:["lo que amo de ti","Cinco razones. Aunque podría escribir cien."],letters:["cartitas secretas","Ábreme cuando lo necesites"],songs:["nuestra banda sonora","Canciones que me llevan a ti"],future:["todavía nos falta vivir","Mi lista favorita"],surprise:["una última cosita","Porque nueve meses merecen un pequeño secreto"]};
+function render(sec){$("#contentEyebrow").textContent=config[sec][0];$("#contentTitle").textContent=config[sec][1];
+if(sec==="memories")body.innerHTML='<div class="memory-grid">'+APP_DATA.memories.map((x,i)=>`<article class="memory-card"><div class="memory-number">${String(i+1).padStart(2,"0")}</div><p class="eyebrow">${esc(x[1])}</p><h3>${esc(x[0])}</h3><p>${esc(x[2])}</p></article>`).join("")+"</div>";
+if(sec==="reasons")body.innerHTML='<div class="reasons-list">'+APP_DATA.reasons.map((x,i)=>`<article class="reason"><div class="reason-index">0${i+1}</div><div><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></div></article>`).join("")+'</div><div class="hand-note">Y esto es solo una lista pequeña. ♡</div>';
+if(sec==="letters")renderLetters();
+if(sec==="songs")body.innerHTML='<div class="songs-list">'+APP_DATA.songs.map((x,i)=>`<article class="song-card"><div class="vinyl">♪</div><div><span class="eyebrow">0${i+1}</span><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p><small>${esc(x[2])}</small></div></article>`).join("")+"</div>";
+if(sec==="future")body.innerHTML='<div class="future-list">'+APP_DATA.future.map(x=>`<article class="future-item"><span>${x[0]}</span><div><h3>${esc(x[1])}</h3><p>${esc(x[2])}</p></div></article>`).join("")+"</div>";
+if(sec==="surprise")body.innerHTML=`<div class="surprise-wrap"><div class="big-heart">♡</div><p class="eyebrow">para cuando llegues hasta aquí</p><h2>Mi lugar favorito<br><em>siempre será contigo.</em></h2><p>No importa cuántos meses pasen, cuántos viajes hagamos o cuántas fotos tomemos. Quiero seguir encontrándote en todas las versiones de nuestra historia.</p><p class="signature">Te amo, mi amorcito.<br><span>— Tu Nene</span></p><button class="primary" id="replay">Volver al inicio ♡</button></div>`,$("#replay").onclick=()=>screen("welcome");
+screen("content")}
+const history=new Map();
+function fresh(i){let a=APP_DATA.letters[i].messages,p=history.get(i),c=a.filter(x=>x!==p),m=c[Math.floor(Math.random()*c.length)];history.set(i,m);return m}
+function renderLetters(){body.innerHTML='<div class="letters-grid">'+APP_DATA.letters.map((x,i)=>`<button class="letter-card" data-i="${i}"><span class="letter-icon">${x.icon}</span><strong>Ábreme cuando ${esc(x.title.replace(/^Cuando /i,"").toLowerCase())}</strong><small>Tengo algo que decirte...</small><span class="open-letter">abrir ↗</span></button>`).join("")+'</div><p class="hint">Cada vez que abras una carta puede aparecerte un mensaje diferente. ♡</p>';
+$$(".letter-card",body).forEach(b=>b.onclick=()=>{let i=+b.dataset.i,x=APP_DATA.letters[i];openModal(`<div class="modal-letter-icon">${x.icon}</div><p class="eyebrow">para mi amorsote</p><h2>${esc(x.title)}</h2><p class="modal-message">${esc(fresh(i))}</p><button class="primary modal-new" data-i="${i}">Dime otra cosita <span>↻</span></button>`);$(".modal-new").onclick=e=>$(".modal-message").textContent=fresh(+e.currentTarget.dataset.i)})}
+$("#musicToggle").onclick=()=>{$("#musicToggle").classList.toggle("active");$("#musicToggle").textContent=$("#musicToggle").classList.contains("active")?"♫":"♪"};
